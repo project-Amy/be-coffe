@@ -7,3 +7,5 @@ export const asyncWrapper = (fn: Function) => {
     fn(req, res, next).catch((err: CustomError) => next(err));
   };
 };
+
+export default asyncWrapper;
