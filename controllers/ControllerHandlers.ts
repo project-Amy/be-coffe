@@ -1,4 +1,12 @@
-const ControllerErrorHandler = (err, req, res, next) => {
+import { Request, Response, NextFunction } from "express";  
+import CustomError from "../utils/CustomError";
+
+const ControllerErrorHandler = (
+  err: CustomError,
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   // Determina lo status code appropriato
   const statusCode = err.statusCode || 500;
   // Struttura la risposta di errore
@@ -6,7 +14,7 @@ const ControllerErrorHandler = (err, req, res, next) => {
     success: false,
     error: {
       message: err.message || "Si è verificato un errore interno del server.",
-      code: err.code || "INTERNAL_ERROR",
+      code: err.statusCode || "INTERNAL_ERROR",
       statusCode: err.statusCode || 500,
     },
   };
