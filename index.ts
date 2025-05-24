@@ -8,8 +8,6 @@ dotenv.config();
 
 const app = express();
 
-// Middleware specifico per i webhook di Clerk - deve essere PRIMA del middleware JSON
-app.use('/api/webhooks/clerk', express.raw({ type: 'application/json' }));
 
 // Middleware per il parsing JSON per tutte le altre route
 app.use(express.json());
