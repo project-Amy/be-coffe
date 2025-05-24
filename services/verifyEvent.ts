@@ -1,4 +1,3 @@
-import { UserWebhookEvent } from "@clerk/backend";
 import { Webhook } from "svix";
 import { Request } from "express";
 
