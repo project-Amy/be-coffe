@@ -8,10 +8,10 @@ dotenv.config();
 
 const app = express();
 
-// Middleware per webhook Clerk - deve ricevere raw buffer
+
 app.use('/api/webhooks/events', express.raw({ type: 'application/json' }));
 
-// Middleware per il parsing JSON per tutte le altre route
+
 app.use(express.json());
 
 const port = parseInt(process.env.PORT || process.argv[3] || '8084');
