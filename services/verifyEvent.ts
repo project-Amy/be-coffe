@@ -3,8 +3,10 @@ import { Webhook } from "svix";
 
 export default function verifyEvent(event: UserWebhookEvent) {
 
-  const secret = "whsec_MfKQ9r8GKYqrTwjUPD8ILPZIo2LaLaSw";
-  
+  const secret = process.env.CLERK_WEBHOOK_SECRET;
+  if (!secret) {
+    throw new Error("CLERK_WEBHOOK_SECRET non configurato");
+  }
   // These were all sent from the server
   const headers = {
     "svix-id": "msg_p5jXN8AQM9LWM0D4loKWxJek",

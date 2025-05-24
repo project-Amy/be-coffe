@@ -7,8 +7,9 @@ import setupSwagger from "./swagger";
 dotenv.config();
 
 const app = express();
-// Middleware per gestire il raw body per i webhook
-app.use('/api/events', express.raw({ type: 'application/json' }));
+
+// Middleware specifico per i webhook di Clerk - deve essere PRIMA del middleware JSON
+app.use('/api/webhooks/clerk', express.raw({ type: 'application/json' }));
 
 // Middleware per il parsing JSON per tutte le altre route
 app.use(express.json());
@@ -23,8 +24,6 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api", routes);
-
-
 
 app.all("*", (req, res, next) => {
   const error = new CustomError(
