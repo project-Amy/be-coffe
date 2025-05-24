@@ -13,6 +13,7 @@ async function ControllerEventsClerk(req: ClerkRequest, res: Response) {
   console.log('Headers ricevuti:', req.headers);
   console.log('Body type:', typeof req.body);
   console.log('Body length:', req.body?.length || 'N/A');
+  console.log('Raw body preview:', req.body?.toString?.().substring(0, 200) || 'N/A');
   
   try {
     // Verifica del webhook Clerk
@@ -59,20 +60,27 @@ async function ControllerEventsClerk(req: ClerkRequest, res: Response) {
     const verifiedEvent = wh.verify(payload, headers) as UserWebhookEvent;
     console.log('✅ Webhook verificato con successo');
     console.log('Evento ricevuto:', verifiedEvent.type);
+    console.log('Dati evento:', JSON.stringify(verifiedEvent.data, null, 2));
     
     // Gestisci l'evento verificato
     const userEventHandler = new UserEventHandler();
-    await userEventHandler.handleEvent(verifiedEvent);
+    const result = await userEventHandler.handleEvent(verifiedEvent);
     
     console.log('✅ Evento processato con successo');
+    console.log('Risultato:', result);
     return res.status(200).json({ 
       message: 'Evento processato con successo',
-      eventType: verifiedEvent.type 
+      eventType: verifiedEvent.type,
+      result: result
     });
     
   } catch (err) {
     console.error('❌ Errore nella verifica del webhook Clerk:', err);
-    return res.status(401).json({ error: 'Firma webhook non valida' });
+    console.error('Stack trace:', err instanceof Error ? err.stack : 'N/A');
+    return res.status(401).json({ 
+      error: 'Firma webhook non valida',
+      details: err instanceof Error ? err.message : 'Errore sconosciuto'
+    });
   }
 }
 

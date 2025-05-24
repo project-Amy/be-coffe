@@ -70,7 +70,7 @@ router.get("/coffe/:id", ControllerCoffe);
 
 /**
  * @swagger
- * /api/webhooks/clerk:
+ * /api/webhooks/events:
  *   post:
  *     summary: Clerk webhook endpoint
  *     description: Handle Clerk user events (create, update, delete)
@@ -85,6 +85,6 @@ router.get("/coffe/:id", ControllerCoffe);
  *       500:
  *         description: Internal server error
  */
-router.post("/webhooks/clerk", ControllerEventsClerk);
+router.post("/webhooks/events", ControllerEventsClerk);
 
 export default router;

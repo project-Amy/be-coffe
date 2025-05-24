@@ -8,6 +8,8 @@ dotenv.config();
 
 const app = express();
 
+// Middleware per webhook Clerk - deve ricevere raw buffer
+app.use('/api/webhooks/events', express.raw({ type: 'application/json' }));
 
 // Middleware per il parsing JSON per tutte le altre route
 app.use(express.json());
@@ -38,5 +40,5 @@ app.listen(port, () => {
     `📚 Endpoint ALL ☕ GET: http://localhost:${port}/api/all_coffes`
   );
   console.log(`📚 Endpoint 1 ☕ POST: http://localhost:${port}/api/coffe/:id`);
-  console.log(`🔗 Endpoint Webhook Clerk: http://localhost:${port}/api/webhooks/clerk`);
+  console.log(`🔗 Endpoint Webhook Clerk: http://localhost:${port}/api/webhooks/events`);
 });
