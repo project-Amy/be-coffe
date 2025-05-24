@@ -1,9 +1,10 @@
 import * as express from "express";
-import ControllerCoffes from "../controllers/ControllerCoffes";
+import ControllerAllCoffe from "../controllers/ControllerAllCoffe";
+import ControllerCoffe from "../controllers/ControllerCoffe";
 
 const router = express.Router();
 
-router.get("/all_coffes", ControllerCoffes);
-router.post("/coffe/:id", ControllerCoffes);
+router.get("/all_coffes", ControllerAllCoffe);
+router.get("/coffe/:id", ControllerCoffe);
 
 export default router;
