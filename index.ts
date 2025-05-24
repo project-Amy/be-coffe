@@ -5,7 +5,7 @@ import ControllerErrorHandler from "./controllers/ControllerHandlers";
 import routes from "./routes/routes";
 dotenv.config();
 
-const router = express.Router();
+
 const app = express();
 app.use(express.json());
 const port = parseInt(process.env.PORT || process.argv[3] || '8080');
